@@ -1,10 +1,22 @@
 import json
 import requests
+from dotenv import load_dotenv
+import os
+
+# Load the .env file
+parent_dir = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")
+)  # Get the path of the parent directory
+env_path = os.path.join(parent_dir, ".env")
+
+load_dotenv(dotenv_path=env_path)
+
+GOOGLE_MAP_API_KEY= os.getenv("GOOGLE_MAP_API_KEY")
 
 # Simulating a configuration file to hold the API key
 config = {
     "API_KEY": {
-        "geocode": "your_api_key"  # Replace 'your_api_key' with your actual Google API key
+        "geocode": GOOGLE_MAP_API_KEY
     }
 }
 
@@ -55,11 +67,15 @@ def get_result(input_string: str) -> str:
     :param input_string: JSON string containing user input data.
     :return: A JSON string containing the result.
     """
+
+
     api_key = config["API_KEY"]["geocode"]
 
     try:
         # Parse the input JSON string
-        parsed_input = json.loads(json.loads(input_string)["data"])
+        # parsed_input = json.loads(json.loads(input_string)["data"])
+        parsed_input = json.loads(input_string)["data"]
+
         origin_name = f"{parsed_input['origin']}(台灣)"
         destination_name = f"{parsed_input['destination']}(台灣)"
         preference = parsed_input["preference"]
