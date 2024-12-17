@@ -95,7 +95,6 @@ def get_result(input_string: str) -> str:
     try:
         # Call the extract_info function to get the AI response
         result = extract_info(input_string)
-        print("result: ", result)
 
         # Validate the result
         if not is_valid_result(result):
