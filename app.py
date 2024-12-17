@@ -46,6 +46,8 @@ def callback():
 def handle_message(event):
     with ApiClient(configuration) as api_client:
 
+        api_manager = api_manager.ApiManager()
+
         response = api_manager.get_result(event.message.text)
 
         line_bot_api = MessagingApi(api_client)
