@@ -2,6 +2,7 @@ import json
 import requests
 from dotenv import load_dotenv
 import os
+import re
 
 # Load the .env file
 parent_dir = os.path.abspath(
@@ -52,12 +53,16 @@ def process_text(preference: str) -> int:
     :param preference: User preference as a string ('省錢', '省時間', or '無').
     :return: A numerical code (0 for '省錢', 1 for '省時間' or '無').
     """
+    # if preference == "省錢":
+    #     return 0
+    # elif preference in ["省時間", "無"]:
+    #     return 1
+    # else:
+    #     raise Exception(f"Invalid input: {preference}")
     if preference == "省錢":
         return 0
-    elif preference in ["省時間", "無"]:
-        return 1
     else:
-        raise Exception(f"Invalid input: {preference}")
+        return 1
 
 
 def get_result(input_string: str) -> str:
@@ -74,7 +79,14 @@ def get_result(input_string: str) -> str:
     try:
         # Parse the input JSON string
         # parsed_input = json.loads(json.loads(input_string)["data"])
-        parsed_input = json.loads(input_string)["data"]
+        parsed_data = json.loads(input_string)["data"]
+
+        cleaned_response = re.sub(r'```(json)?\n', '', parsed_data)  # Remove opening triple backticks
+        cleaned_response = re.sub(r'\n```', '', cleaned_response)  # Remove closing triple backticks
+
+        cleaned_response = cleaned_response.strip()
+
+        parsed_input = json.loads(cleaned_response)
 
         origin_name = f"{parsed_input['origin']}(台灣)"
         destination_name = f"{parsed_input['destination']}(台灣)"
