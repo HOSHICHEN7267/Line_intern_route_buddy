@@ -1,46 +1,57 @@
-# 最懂你的(✪ω✪) 智能路線規劃 chatbot
+# Route Buddy (✪ω✪) 
 
+An innovative route planning Line-chatbot designed for users who need real-time public transportation suggestions and love exploring. The key feature is its conversational interface for route planning: users only need to input the names of attractions or locations to receive accurate and detailed route recommendations. Our goal is to bring unparalleled convenience and enjoyment to every user, setting a new benchmark for intelligent travel.
 
-一款創新的路線規劃應用，專為需要即時公共交通建議和喜愛探索的使用者設計。主要特色在於使用對話形式進行路線規劃，使用者僅需輸入景點或地點名稱，即可獲得準確且詳細的路線建議，希望能為每位使用者帶來前所未有的便利和樂趣，成為智能出行的新標竿。
+## Features  
 
-## 特色
++ The first service that performs route planning via conversation. 
++ Provides real-time public transportation route planning.  
++ Supports route planning based on the name of "attractions" or "locations."  
 
-+ 市面上第一款以"對話"進行路線規劃的平台
-+ 提供 Real-time 公共旅運路線規劃
-+ 可直接以"景點"或"地點"的名稱進行規劃
+## How to Use
 
-## 使用教學
+Add the following Line chatbot as a friend.
+[**LINK**](https://line.me/R/ti/p/@360jhbtt)
 
-傳送訊息告訴小幫手，出發地點、目的地、是否偏好省錢或省時間
+Send a message to the assistant with the following details: departure location, destination, and your preference (cost-saving or time-saving).  
 
-    If 能正確找到交通方式:   
-    小幫手告訴使用者如何轉乘交通  
-    else:   
-    小幫手說明錯誤問題，並請使用者再傳一次內容
+**If the transportation method is successfully found:** </br>
+The assistant will provide instructions on how to transfer using public transportation.  
+**else:** </br>
+The assistant will explain the issue and ask the user to resend the information.  
 
-## 運用技術
+## Technologies Used  
 
-+ 串接 Line messaging api 作為聊天平台
-+ 整合 OpenAI、Google Map Platform API、TDX MaaS 模組，產出路線建議
++ Integrated **Line Messaging API** as the chat platform.  
++ Combined **OpenAI**, **Google Map Platform API**, and **TDX MaaS module** to generate route suggestions.
++ The service is deployed on **Render**
 
-## 架構
+## Architecture  
 
-此專案以 Line 作為聊天平台，串接 OpenAI、Google Map、TDX MaaS 模組，以取得公共運輸旅運規劃。
+This project uses **Line** as the chat platform and integrates **OpenAI**, **Google Maps**, and the **TDX MaaS module** to obtain public transportation route plans. The service is deployed on **Render** as a server.
 
+### Workflow  
 
-Step 1. 當 chatbot 獲取使用者輸入後，將字串傳給 OpenAI 進行自然語言處理。
+**Step 1:** When the chatbot receives user message, the text string is sent to **OpenAI** for natural language processing.  
 
+**Step 2:** **OpenAI** converts the user input into a JSON format, which includes start and destination descriptions, along with user preferences. This JSON is sent to the **Google Map Geocoding API**.  
 
-Step 2. OpenAI 將使用者輸入轉為 json 格式，其中包含起訖點地名敘述、使用者偏好。將這份 json 傳給 Google Geocoding。
+**Step 3:** Using the **Google Map Geocoding API**, the coordinates of the start and destination points are retrieved. These coordinates, combined with the user input, are passed to **TDX**.  
 
+**Step 4:** The **TDX MaaS module** processes the user input and provides the planned routes, which are sent back to **OpenAI**.  
 
-Step 3. 利用 Google Geocoding API 取得起訖點座標，將這份資料結合先前的使用者輸入傳給 TDX。
+**Step 5:** **OpenAI** interprets the planned routes and generates natural language instructions, sending the route details back to the chatbot.  
 
+**Step 6:** The chatbot presents the planned route to the user in a conversational format.  
 
-Step 4. TDX MaaS 模組取得使用者輸入，將規劃路線傳給 OpenAI。
+## Cautions
 
+**1.**
+Since the service is currently deployed using a free account on Render, the server restart takes approximately 50 seconds. If there is a long gap between messages, you may need to wait for the server to wake up. Please re-enter your message after about 1 minute to receive a proper response.
 
-Step 5. OpenAI 解讀規劃路線，並產出自然語言，將路徑指示字串傳給 chatbot。
+**2.**
+Currently, this service only supports Chinese and does not support other languages (additional languages are planned for the future). Please use Chinese when communicating with the chatbot.
 
+**3.**
+**(For LINE interviewers)**  During the implementation process, I accidentally used my lab mate's GitHub account to push to the repository. (The commit record of *chu-ching-liang* (cd51a3f ~ 5270680) are commits made using my lab mate's account.) I apologize for the inconvenience and kindly ask for your understanding and attention regarding this matter.
 
-Step 6. chatbot 以對話的方式向使用者展示規劃路線。
