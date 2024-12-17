@@ -49,9 +49,13 @@ def callback():
 def handle_message(event):
     with ApiClient(configuration) as api_client:
 
+        print("Client text: ", event.message.text)
+
         response = api_manager.get_result(event.message.text)
 
         response_text = json.loads(response)['data']
+
+        print("Response text: ", response_text)
 
         line_bot_api = MessagingApi(api_client)
         line_bot_api.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=response_text)]))
