@@ -20,6 +20,8 @@ app = Flask(__name__)
 configuration = Configuration(access_token=CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
 
+api_manager = api_manager.ApiManager()
+
 
 # Define a route for the webhook
 @app.route("/callback", methods=['POST'])
@@ -45,8 +47,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     with ApiClient(configuration) as api_client:
-
-        api_manager = api_manager.ApiManager()
 
         response = api_manager.get_result(event.message.text)
 
