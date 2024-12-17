@@ -1,8 +1,8 @@
 import json
-import openai_receive_unit
-import map_unit
-import tdx_unit
-import openai_send_unit
+import services.openai_receive_unit as openai_receive_unit
+import services.map_unit as map_unit
+import services.tdx_unit as tdx_unit
+import services.openai_send_unit as openai_send_unit
 
 
 class ApiManager:
