@@ -50,8 +50,10 @@ def handle_message(event):
 
         response = api_manager.get_result(event.message.text)
 
+        response_text = response['data']
+
         line_bot_api = MessagingApi(api_client)
-        line_bot_api.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=response)]))
+        line_bot_api.reply_message_with_http_info( ReplyMessageRequest( reply_token=event.reply_token, messages=[TextMessage(text=response_text)]))
 
 if __name__ == "__main__":
     app.run()
