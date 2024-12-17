@@ -11,12 +11,12 @@ env_path = os.path.join(parent_dir, ".env")
 
 load_dotenv(dotenv_path=env_path)
 
-OPANAI_API_KEY= os.getenv("OPANAI_API_KEY")
+OPENAI_API_KEY= os.getenv("OPENAI_API_KEY")
 
 # Simulated config file for API key
 config = {
     "API_KEY": {
-        "openai": OPANAI_API_KEY  # Replace this with your OpenAI API key
+        "openai": OPENAI_API_KEY  # Replace this with your OpenAI API key
     }
 }
 
